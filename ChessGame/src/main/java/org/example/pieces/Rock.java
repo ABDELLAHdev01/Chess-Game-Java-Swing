@@ -28,17 +28,17 @@ public class Rock extends Piece{
 
     public boolean moveCollidesWithPiece(int col, int row) {
         //left
-        if (this.col >col){
-            for (int c = this.col - 1 ; c >col; c--){
-                if (board.getPiece(c,this.row) != null){
+        if (this.col > col) {
+            for (int c = this.col - 1; c > col; c--) {
+                if (board.getPiece(c, this.row) != null) {
                     return true;
                 }
             }
         }
         //right
-        if (this.col <col){
-            for (int c = this.col - 1 ; c <col; c++){
-                if (board.getPiece(c,this.row) != null){
+        if (this.col < col) {  // Fix: Changed this.col - 1 to this.col + 1
+            for (int c = this.col + 1; c < col; c++) {
+                if (board.getPiece(c, this.row) != null) {
                     return true;
                 }
             }
