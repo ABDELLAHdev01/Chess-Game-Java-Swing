@@ -19,11 +19,18 @@ public class Board extends JPanel {
     Input input = new Input(this);
 
 
-    public boolean isValidMove(Move move){
-        if (sameTeam(move.piece,move.captured)){
+    public boolean isValidMove(Move move) {
+        if (sameTeam(move.piece, move.captured)) {
             return false;
         }
 
+        if (!move.piece.isValidMovement(move.newCol, move.newRow)) {
+            return false;
+        }
+
+        if (move.piece.moveCollidesWithPiece(move.newCol, move.newRow)) {
+            return false;
+        }
 
         return true;
     }
@@ -123,11 +130,21 @@ public class Board extends JPanel {
 
     public void paintComponent(Graphics g){
         Graphics2D g2d = (Graphics2D) g;
-
+    //nsbgho board
         for(int r = 0;r<rows;r++)
             for (int c = 0;c<cols;c++){
                 g2d.setColor((c+r) % 2==0? new Color(194, 217, 236): new Color(33, 33, 194));
                 g2d.fillRect(c*titleSize,r*titleSize,titleSize,titleSize);
+            }
+        // nsbgho blayss li valid nmvhi lihom
+        if (SelectedPiece != null)
+        for(int r = 0;r<rows;r++)
+            for (int c = 0;c<cols;c++){
+                if(isValidMove(new Move(this,SelectedPiece,c,r))){
+                    g2d.setColor(new Color(101, 242, 248, 211));
+                    g2d.fillRect(c*titleSize,r *titleSize,titleSize,titleSize);
+
+                }
             }
         for (Piece piece : pieceList){
             piece.paint(g2d);

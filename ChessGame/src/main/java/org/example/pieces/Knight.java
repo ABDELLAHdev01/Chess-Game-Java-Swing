@@ -18,4 +18,11 @@ public class Knight extends Piece{
         this.sprite = sheet.getSubimage(3 * sheetScale, isWhite ? 0 : sheetScale,sheetScale,sheetScale).getScaledInstance(board.titleSize,board.titleSize, BufferedImage.SCALE_SMOOTH);
 
     }
+
+
+    public boolean isValidMovement(int col, int row) {
+        int dx = Math.abs(col - this.col);
+        int dy = Math.abs(row - this.row);
+        return (dx == 1 && dy == 2) || (dx == 2 && dy == 1);
+    }
 }
