@@ -14,9 +14,55 @@ public class Board extends JPanel {
 
     ArrayList<Piece> pieceList = new ArrayList<>();
 
+    public Piece SelectedPiece;
+
+    Input input = new Input(this);
+
+
+    public boolean isValidMove(Move move){
+        if (sameTeam(move.piece,move.captured)){
+            return false;
+        }
+
+
+        return true;
+    }
+
+    public void makeMove(Move move){
+        move.piece.col = move.newCol;
+        move.piece.row = move.newRow;
+
+        move.piece.xPos = move.newCol * titleSize;
+        move.piece.yPos = move.newRow * titleSize;
+
+        captured(move);
+    }
+
+    public void captured(Move move){
+        pieceList.remove(move.captured);
+    }
+
     public Board(){
         this.setPreferredSize(new Dimension(cols*titleSize,rows*titleSize));
+        this.addMouseListener(input);
+        this.addMouseMotionListener(input);
         addPieces();
+    }
+    public Piece getPiece(int col,int row){
+        for (Piece piece : pieceList) {
+            if (piece.col == col && piece.row == row){
+                return piece;
+
+            }
+        }
+        return null;
+    }
+
+    public boolean sameTeam(Piece p1,Piece p2){
+        if (p1 == null || p2 == null){
+            return false;
+        }
+        return p1.isWhite == p2.isWhite;
     }
 
     public void addPieces(){
@@ -40,8 +86,8 @@ public class Board extends JPanel {
         //nzido queen
         pieceList.add(new Queen(this,4,0,false));
         // nzido bishop
-        pieceList.add(new Queen(this,2,0,false));
-        pieceList.add(new Queen(this,5,0,false));
+        pieceList.add(new Bishop(this,2,0,false));
+        pieceList.add(new Bishop(this,5,0,false));
 
 
 
@@ -71,8 +117,8 @@ public class Board extends JPanel {
         //nzido queen
         pieceList.add(new Queen(this,4,7,true));
         // nzido bishop
-        pieceList.add(new Queen(this,2,7,true));
-        pieceList.add(new Queen(this,5,7,true));
+        pieceList.add(new Bishop(this,2,7,true));
+        pieceList.add(new Bishop(this,5,7,true));
     }
 
     public void paintComponent(Graphics g){
