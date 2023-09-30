@@ -16,6 +16,8 @@ public class Piece {
     public String name;
     public int value;
 
+    public boolean isFirstMove = true;
+
     BufferedImage sheet;
     {
         try{

@@ -15,7 +15,7 @@ public class Queen extends Piece{
         this.isWhite = isWhite;
         this.name = "Queen";
 
-        this.sprite = sheet.getSubimage(0 * sheetScale, isWhite ? 0 : sheetScale,sheetScale,sheetScale).getScaledInstance(board.titleSize,board.titleSize, BufferedImage.SCALE_SMOOTH);
+        this.sprite = sheet.getSubimage(1 * sheetScale, isWhite ? 0 : sheetScale,sheetScale,sheetScale).getScaledInstance(board.titleSize,board.titleSize, BufferedImage.SCALE_SMOOTH);
 
     }
     public boolean isValidMovement(int col, int row) {
