@@ -20,6 +20,11 @@ public class Board extends JPanel {
 
     public int enPassantTile = -1;
 
+    CheckScanner checkScanner = new CheckScanner(this);
+
+    String last_move= "";
+
+
     Piece findKing(boolean isWhite){
         for (Piece piece: pieceList){
             if (isWhite == piece.isWhite && piece.name == "King"){
@@ -30,10 +35,12 @@ public class Board extends JPanel {
     }
 
 
+
     public boolean isValidMove(Move move) {
         if (sameTeam(move.piece, move.captured)) {
             return false;
         }
+
 
         if (!move.piece.isValidMovement(move.newCol, move.newRow)) {
             return false;
@@ -43,10 +50,47 @@ public class Board extends JPanel {
             return false;
         }
 
+        if (last_move == "white") {
+            if(move.piece.isWhite) {
+                return false;
+            }
+            if(move.piece.moveCollidesWithPiece(move.newCol,move.newRow)) {
+                return false;
+            }
+            if(checkScanner.isKingChecked(move)) {
+                return false;
+            }
+            return true;
+        }
+        if (last_move == "black") {
+            if(!move.piece.isWhite) {
+                return false;
+            }
+            if(move.piece.moveCollidesWithPiece(move.newCol,move.newRow)) {
+                return false;
+            }
+            if(checkScanner.isKingChecked(move)) {
+                return false;
+            }
+            return true;
+        }
+//
+
+
+
+
         return true;
     }
 
     public void makeMove(Move move){
+        if(last_move == "white") {
+            last_move = "black";
+        }else
+        if(last_move == "black") {
+            last_move = "white";
+        }else {
+            last_move = "white";
+        }
         if (move.piece.name.equals("Pawn")){
             movePawn(move);
         }else {
