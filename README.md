@@ -2,6 +2,8 @@
 
 Chess Game is a Java application that allows users to play the classic game of chess. It provides a graphical interface for playing the game and follows the standard rules of chess.
 
+![1696459008676](https://github.com/ABDELLAHdev01/Chess-Game-Java-Swing/assets/112889104/0b6610bf-f46e-47b3-8b34-fa4dadb268a2)
+
 ## Table of Contents
 
 - [Introduction](#introduction)
